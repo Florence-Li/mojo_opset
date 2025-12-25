@@ -38,13 +38,13 @@ jobs:
         shell: bash
         run: |
           export HTTP_PROXY=${MOJO_OPSET_PROXY} HTTPS_PROXY=${MOJO_OPSET_PROXY}
-          pip install byted-triton-x --index-url https://bytedpypi.byted.org/simple --force-reinstall
+          pip install byted-triton-x==3.2.0.post17 --index-url https://bytedpypi.byted.org/simple --force-reinstall
           pip install -U pip setuptools wheel build
           pip install -e .
           python3 -m build .
           pip install dist/*.whl --force-reinstall --no-deps
     
-      - name: test-TTX_KERNELS
+      - name: test-TTX
         shell: bash
         run: |
           echo "Running ttx kernels tests..."
@@ -54,8 +54,19 @@ jobs:
         run: |
           echo "Running torch_ops tests..."
           MOJO_BACKEND="+TORCH_OPS" python3 -m pytest tests/  --ignore=tests/functions
+          MOJO_BACKEND="+TTX" python3 -m pytest tests/accuracy/
+      - name: test-TTX-graph
+        shell: bash
+        run: |
+          echo "Running ttx graph tests..."
+          python3 -m pytest tests/test_ttx_graph/
+      - name: test-ttx-model-inference
+        shell: bash
+        run: |
+          echo "Running ttx modeling tests..."
+          MOJO_BACKEND="+TTX" python3 -m pytest tests/test_qwen3_dense_patching.py
       - name: test-XPU_OPS
         shell: bash
         run: |
           echo "Running xpu_ops tests..."
-          MOJO_BACKEND="+TTX_KERNELS" python3 -m pytest tests/ --ignore=tests/test_qwen3_dense_patching.py --ignore=tests/functions
+          MOJO_BACKEND="+XPU_OPS" python3 -m pytest tests/accuracy/ --ignore=tests/functions
