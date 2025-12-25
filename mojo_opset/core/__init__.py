@@ -94,8 +94,6 @@ from .functions.mojo_silu_func import MojoSiluFunction
 
 # fmt: off
 __all__ = [
-    "MojoM8BigOp",
-
     "MojoGelu",
     "MojoGeluQuant",
     "MojoSilu",
@@ -117,6 +115,7 @@ __all__ = [
     "MojoDecodeNSA",
     "MojoPagedDecodeNSA",
     "MojoGatedDeltaRule",
+    "MojoBlockDiffusionAttention",
 
     "MojoStoreKVCache",
     "MojoStorePagedKVCache",
@@ -161,11 +160,17 @@ __all__ = [
     "MojoTopPSampling",
     "MojoTopKSampling",
     "MojoRejectSampling",
+    "MojoJoinProbRejectSampling",
+    "MojoApplyPenaltiesTempurate",
+    "MojoTopPFilter",
 
     "MojoSiluFunction",
     "MojoRMSNormFunction",
     "MojoRoPEFunction",
     "MojoFusedLinearCrossEntropyFunction",
     "MojoGatedDeltaRuleFunction",
+    "MojoCausalConv1dFunction",
+    "causal_conv1d",
+    "LAST_PRIORITY",
 ]
 # fmt: on

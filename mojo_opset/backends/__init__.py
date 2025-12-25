@@ -1,8 +1,10 @@
-import importlib
+from .reference import *
 
+from mojo_opset.utils.platform import get_platform
 
-def init_mojo_backend(backend_name: str):
-    """
-    Initialize the mojo backend.
-    """
-    importlib.import_module(f"mojo_opset.backends.{backend_name}")
+platform = get_platform()
+
+_SUPPORT_TTX_PLATFROM = ["npu"]
+
+if platform in _SUPPORT_TTX_PLATFROM:
+    from .ttx import *

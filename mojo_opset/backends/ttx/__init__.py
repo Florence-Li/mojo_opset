@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from .activation import TTXGelu
 from .activation import TTXSilu
 from .activation import TTXSiluFunction
@@ -27,3 +28,10 @@ __all__ = [
     "TTXFusedLinearCrossEntropyFunction",
     "TTXGatedDeltaRuleFunction",
 ]
+=======
+from mojo_opset.utils.platform import get_impl_by_platform
+
+_op_map = get_impl_by_platform()
+globals().update(_op_map)
+__all__ = list(_op_map.keys())
+>>>>>>> upstream/master
